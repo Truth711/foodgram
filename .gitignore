@@ -132,4 +132,5 @@ dmypy.json
 .idea
 
 # media
-backend/media/
+media/
+/frontend/node_modules/

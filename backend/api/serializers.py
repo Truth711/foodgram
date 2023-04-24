@@ -166,8 +166,16 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
         tags = validated_data.pop('tags')
         IngredientInRecipe.objects.filter(recipe=instance).delete()
         self.get_ingredients_in_recipe(instance, ingredients)
+        instance.tags.remove()
         instance.tags.set(tags)
         return super().update(instance, validated_data)
+
+    def validate_ingredients(self, value):
+        if not value:
+            raise serializers.ValidationError(
+                'Нельзя создать рецепт без ингредиентов.'
+            )
+        return value
 
     def to_representation(self, instance):
         request = self.context.get('request')

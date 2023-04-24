@@ -79,7 +79,7 @@ class Recipes(models.Model):
         'Текст рецепта',
         help_text='Введите текст рецепта',
     )
-    cooking_time = models.IntegerField(
+    cooking_time = models.PositiveIntegerField(
         'Время приготовления в минутах',
         help_text='Введите время приготовления в минутах',
         validators=[
