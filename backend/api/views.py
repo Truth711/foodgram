@@ -1,4 +1,4 @@
-from django.db.models import Exists, OuterRef
+from django.db.models import Exists, OuterRef, Sum
 from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
@@ -175,11 +175,14 @@ class RecipeViewSet(viewsets.ModelViewSet):
     @action(detail=False,  methods=['get'],
             permission_classes=(permissions.IsAuthenticated,))
     def download_shopping_cart(self, request):
-        recipes = Recipes.objects.filter(shopping_cart__user=self.request.user)
-        ingredients_to_purchase = IngredientInRecipe.objects.filter(
-            recipe__in=recipes
+        recipes = Recipes.objects.filter(
+            shopping_cart__user=self.request.user)
+        to_purchase = IngredientInRecipe.objects.filter(
+            recipe__in=recipes).values(
+            'ingredient__name').annotate(
+            sum=Sum('amount')
         )
-        pdf = pdf_shopping_cart.generate(ingredients_to_purchase)
+        pdf = pdf_shopping_cart.generate(to_purchase)
         return FileResponse(
             pdf,
             as_attachment=True,

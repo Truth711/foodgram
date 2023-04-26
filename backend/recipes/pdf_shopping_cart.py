@@ -14,16 +14,12 @@ pdfmetrics.registerFont(TTFont('FreeSans', 'FreeSans.ttf'))
 
 
 def parse_data(ingredients_to_purchase):
-    ingredients = {}
-    for i in ingredients_to_purchase:
-        ingredients[i.ingredient] = ingredients.get(i.ingredient, 0) + i.amount
 
     parsed_data = []
-    for key, value in ingredients.items():
+    for i in ingredients_to_purchase:
         pdf_string = [
-            key.name,
-            key.measurement_unit,
-            value,
+            i.get('ingredient__name'),
+            i.get('sum'),
         ]
         parsed_data.append(pdf_string)
     return parsed_data
@@ -45,7 +41,7 @@ def generate(ingredients_to_purchase):
         file.drawString(
             x,
             y,
-            f'- {string[0]} ({string[1]}) - {str(string[2])}'
+            f'- {string[0]} - {str(string[1])}'
         )
         y += 15
 

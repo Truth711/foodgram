@@ -12,12 +12,10 @@ class Tag(models.Model):
     color = models.CharField(
         'Цвет в HEX',
         max_length=7,
-        null=True,
     )
     slug = models.SlugField(
         'Слаг тега',
         max_length=200,
-        null=True,
         unique=True
     )
 
