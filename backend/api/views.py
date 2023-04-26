@@ -179,7 +179,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
             shopping_cart__user=self.request.user)
         to_purchase = IngredientInRecipe.objects.filter(
             recipe__in=recipes).values(
-            'ingredient__name').annotate(
+            'ingredient__name', 'ingredient__measurement_unit').annotate(
             sum=Sum('amount')
         )
         pdf = pdf_shopping_cart.generate(to_purchase)

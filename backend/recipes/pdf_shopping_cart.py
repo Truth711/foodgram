@@ -19,6 +19,7 @@ def parse_data(ingredients_to_purchase):
     for i in ingredients_to_purchase:
         pdf_string = [
             i.get('ingredient__name'),
+            i.get('ingredient__measurement_unit'),
             i.get('sum'),
         ]
         parsed_data.append(pdf_string)
@@ -41,7 +42,7 @@ def generate(ingredients_to_purchase):
         file.drawString(
             x,
             y,
-            f'- {string[0]} - {str(string[1])}'
+            f'- {string[0]} ({string[1]}) - {str(string[2])}'
         )
         y += 15
 
