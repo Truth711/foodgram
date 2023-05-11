@@ -23,7 +23,7 @@
 
 Проект упакован в три docker-контейнера.
 
-Фронтенд реализован с исполизованием React.js
+Фронтенд реализован с использованием React.js
 ## Технологии:
 - [Django](https://www.djangoproject.com/)
 - [Django REST Framework](https://www.django-rest-framework.org)
