@@ -37,7 +37,7 @@ docker-compose exec web python manage.py migrate
 docker-compose exec web python manage.py createsuperuser
 docker-compose exec web python manage.py collectstatic --no-input
 ```
-- Загрузить список ингредиентов из фикструры:
+- Загрузить список ингредиентов из фикстуры:
 ```
 docker-compose exec web python manage.py loaddata ingredients.json
 ```
